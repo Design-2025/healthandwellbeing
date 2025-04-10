@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comic Book</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            font-family: sans-serif;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #001f3f;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .sidebar button:hover {
+            background-color: #004080;
+        }
+
+        .main {
+            flex: 1;
+            text-align: center;
+            background-color: navy;
+            color: white;
+            padding: 20px;
+        }
+
+        img {
+            width: 600px;
+            height: 500px;
+            border-radius: 10px;
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+
+        .controls button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            border: none;
+            background-color: #ffffff;
+            color: navy;
+            font-weight: bold;
+        }
+
+        .controls button:hover {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Comic Strips</h2>
+        <!-- Comic strip buttons -->
+        <div id="stripList"></div>
+    </div>
+
+    <div class="main">
+        <h1>Health and Well Being Comic</h1>
+        <img id="change" src="1.png" alt="Comic Image">
+        <div class="controls">
+            <button onclick="prev()">⏮️ Previous</button>
+            <button onclick="play()">▶️ Play</button>
+            <button onclick="pause()">⏸️ Pause</button>
+            <button onclick="next()">⏭️ Next</button>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            "1.png",
+            "2.png",
+            "3.png",
+            "4.png",
+            "5.png",
+            "6.png",
+            "7.png",
+            "8.png",
+            "9.png",
+            "10.png",
+            "11.png",
+            "12.png",
+            "13.png",
+            "14.png",
+            "15.png",
+            "16.png",
+            "17.png",
+            "18.png",
+            "19.png",
+            "20.png",
+            "21.png",
+            "22.png",
+            "23.png",
+            "24.png"
+        ];
+
+        const stripTitles = [
+            "Cover Page", "Introduction", "Carbohydrates", "Fats", "Proteins", "Water",
+            "Vitamins and Minerals", "Types of Minerals", "Types of Vitamins", "Vitamin A",
+            "Vitamin B", "Vitamin B12", "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K",
+            "Importance of Water", "Fiber", "Balanced Diet", "Unhealthy Food", "Exercise",
+            "Importance of Exercise", "Good Health and Well Being", "Conclusion"
+        ];
+
+        let currentIndex = 0;
+        let slideshowInterval = null;
+
+        function showImage() {
+            document.getElementById("change").src = images[currentIndex];
+        }
+
+        function next() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage();
+        }
+
+        function prev() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage();
+        }
+
+        function play() {
+            if (!slideshowInterval) {
+                slideshowInterval = setInterval(next, 2000);
+            }
+        }
+
+        function pause() {
+            clearInterval(slideshowInterval);
+            slideshowInterval = null;
+        }
+
+        function goToStrip(index) {
+            currentIndex = index;
+            showImage();
+            pause(); // Optional: pause slideshow when manually selecting
+        }
+
+        // Populate the sidebar buttons with specific names
+        const stripList = document.getElementById("stripList");
+        for (let i = 0; i < stripTitles.length; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = `${stripTitles[i]}`;
+            btn.onclick = () => goToStrip(i);
+            stripList.appendChild(btn);
+        }
+    </script>
+</body>
+</html>
