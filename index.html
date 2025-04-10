@@ -80,7 +80,7 @@
 
     <div class="sidebar">
         <h2>Comic Strips</h2>
-        <!-- Comic strip buttons -->
+    
         <div id="stripList"></div>
     </div>
 
@@ -162,10 +162,10 @@
         function goToStrip(index) {
             currentIndex = index;
             showImage();
-            pause(); // Optional: pause slideshow when manually selecting
+            pause(); 
         }
 
-        // Populate the sidebar buttons with specific names
+    
         const stripList = document.getElementById("stripList");
         for (let i = 0; i < stripTitles.length; i++) {
             const btn = document.createElement("button");
